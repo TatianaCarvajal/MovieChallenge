@@ -12,6 +12,7 @@ class Movie: Decodable {
     let adult: Bool
     let originalLanguage: String
     let popularity: Double
+    let poster: String
     
     
     enum CodingKeys: String, CodingKey {
@@ -19,13 +20,15 @@ class Movie: Decodable {
         case adult = "adult"
         case originalLanguage = "original_language"
         case popularity = "popularity"
+        case poster = "poster_path"
     }
     
-    init(title: String, adult: Bool, originalLanguage: String, popularity: Double) {
+    init(title: String, adult: Bool, originalLanguage: String, popularity: Double, poster: String) {
         self.title = title
         self.adult = adult
         self.originalLanguage = originalLanguage
         self.popularity = popularity
+        self.poster = poster
     }
     
     
