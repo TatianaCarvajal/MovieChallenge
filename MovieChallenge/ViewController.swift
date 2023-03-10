@@ -9,11 +9,22 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var service: ServiceProtocol = ServiceFacade()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        loadMovies()
+    }
+    
+    private func loadMovies() {
+        service.fetchTopRatedMovies { result in
+            switch result {
+            case .success(let topRatedResponse):
+                print(topRatedResponse)
+            case .failure(let error): print(error)
+            }
+        }
     }
 
 
 }
-

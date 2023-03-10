@@ -13,6 +13,12 @@
 		753025BF29B927A700D4BB1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753025BD29B927A700D4BB1D /* Main.storyboard */; };
 		753025C129B927A800D4BB1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 753025C029B927A800D4BB1D /* Assets.xcassets */; };
 		753025C429B927A800D4BB1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753025C229B927A800D4BB1D /* LaunchScreen.storyboard */; };
+		753025CD29B92AF800D4BB1D /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753025CC29B92AF800D4BB1D /* ServiceProtocol.swift */; };
+		753025D029B92CAA00D4BB1D /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753025CF29B92CAA00D4BB1D /* Movie.swift */; };
+		753025D229B9311E00D4BB1D /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753025D129B9311E00D4BB1D /* Genre.swift */; };
+		753025D429B933D500D4BB1D /* ServiceFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753025D329B933D500D4BB1D /* ServiceFacade.swift */; };
+		753025D629B93CD400D4BB1D /* ServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753025D529B93CD400D4BB1D /* ServiceError.swift */; };
+		753025D829B9405500D4BB1D /* TopRatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753025D729B9405500D4BB1D /* TopRatedResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +30,12 @@
 		753025C029B927A800D4BB1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		753025C329B927A800D4BB1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		753025C529B927A800D4BB1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		753025CC29B92AF800D4BB1D /* ServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
+		753025CF29B92CAA00D4BB1D /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		753025D129B9311E00D4BB1D /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
+		753025D329B933D500D4BB1D /* ServiceFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFacade.swift; sourceTree = "<group>"; };
+		753025D529B93CD400D4BB1D /* ServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceError.swift; sourceTree = "<group>"; };
+		753025D729B9405500D4BB1D /* TopRatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopRatedResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +68,8 @@
 		753025B629B927A700D4BB1D /* MovieChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				753025CE29B92C4500D4BB1D /* Models */,
+				753025CB29B92A9E00D4BB1D /* Service */,
 				753025B729B927A700D4BB1D /* AppDelegate.swift */,
 				753025B929B927A700D4BB1D /* SceneDelegate.swift */,
 				753025BB29B927A700D4BB1D /* ViewController.swift */,
@@ -65,6 +79,26 @@
 				753025C529B927A800D4BB1D /* Info.plist */,
 			);
 			path = MovieChallenge;
+			sourceTree = "<group>";
+		};
+		753025CB29B92A9E00D4BB1D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				753025CC29B92AF800D4BB1D /* ServiceProtocol.swift */,
+				753025D329B933D500D4BB1D /* ServiceFacade.swift */,
+				753025D529B93CD400D4BB1D /* ServiceError.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		753025CE29B92C4500D4BB1D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				753025CF29B92CAA00D4BB1D /* Movie.swift */,
+				753025D129B9311E00D4BB1D /* Genre.swift */,
+				753025D729B9405500D4BB1D /* TopRatedResponse.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +172,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				753025D629B93CD400D4BB1D /* ServiceError.swift in Sources */,
+				753025D429B933D500D4BB1D /* ServiceFacade.swift in Sources */,
 				753025BC29B927A700D4BB1D /* ViewController.swift in Sources */,
 				753025B829B927A700D4BB1D /* AppDelegate.swift in Sources */,
 				753025BA29B927A700D4BB1D /* SceneDelegate.swift in Sources */,
+				753025D229B9311E00D4BB1D /* Genre.swift in Sources */,
+				753025D829B9405500D4BB1D /* TopRatedResponse.swift in Sources */,
+				753025CD29B92AF800D4BB1D /* ServiceProtocol.swift in Sources */,
+				753025D029B92CAA00D4BB1D /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
