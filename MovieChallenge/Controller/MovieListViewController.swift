@@ -26,6 +26,9 @@ class MovieListViewController: UIViewController {
             switch result {
             case .success(let topRatedResponse):
                 self?.movies = topRatedResponse.results
+                DispatchQueue.main.async {
+                    self?.listTableView.reloadData()
+                }
             case .failure(let error): print(error)
             }
         }
@@ -33,8 +36,9 @@ class MovieListViewController: UIViewController {
     private func setupTableView () {
         listTableView.dataSource = self
         listTableView.delegate = self
-        
+        listTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
     }
+    
 }
 extension MovieListViewController: UITableViewDataSource {
     
@@ -43,10 +47,14 @@ extension MovieListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        cell.textLabel?.text = movies[indexPath.row].title
-        
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as? MovieTableViewCell else {
+            return UITableViewCell()
+        }
+        let movie = movies[indexPath.row]
+        cell.configureCell(image: "https://image.tmdb.org/t/p/w55\(movie.poster)", label: movie.title)
         return cell
+         
     }
     
     
