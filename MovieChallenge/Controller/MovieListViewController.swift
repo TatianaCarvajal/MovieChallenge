@@ -10,6 +10,7 @@ import UIKit
 class MovieListViewController: UIViewController {
     
     @IBOutlet var listTableView: UITableView!
+    @IBOutlet var genresStackView: UIStackView!
     
     var service: ServiceProtocol = ServiceFacade()
     
@@ -45,9 +46,22 @@ class MovieListViewController: UIViewController {
         service.fetchGenreListMovies { [weak self] result in
             switch result {
             case .success(let genreListResponse):
-                self?.genres = genreListResponse.genres
+                DispatchQueue.main.async {
+                    self?.genres = genreListResponse.genres
+                    self?.selectGenres()
+                }
             case .failure(let error): print(error)
             }
+        }
+    }
+    private func selectGenres() {
+        genres.forEach { genre in
+            let button = UIButton(type: .system)
+            button.setTitle(genre.name, for: .normal)
+            genresStackView.addArrangedSubview(button)
+            button.setTitleColor(.black, for: .normal)
+            button.backgroundColor = .lightGray
+            button.layer.cornerRadius = 12
         }
     }
 }
