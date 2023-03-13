@@ -13,11 +13,14 @@ class MovieListViewController: UIViewController {
     
     var service: ServiceProtocol = ServiceFacade()
     
-    var movies: [Movie] = []
+    private var movies: [Movie] = []
+    
+    private var genres: [Genre] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMovies()
+        loadGenres()
         setupTableView()
     }
     
@@ -33,12 +36,20 @@ class MovieListViewController: UIViewController {
             }
         }
     }
-    private func setupTableView () {
+    private func setupTableView() {
         listTableView.dataSource = self
         listTableView.delegate = self
         listTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
     }
-    
+    private func loadGenres() {
+        service.fetchGenreListMovies { [weak self] result in
+            switch result {
+            case .success(let genreListResponse):
+                self?.genres = genreListResponse.genres
+            case .failure(let error): print(error)
+            }
+        }
+    }
 }
 extension MovieListViewController: UITableViewDataSource {
     
