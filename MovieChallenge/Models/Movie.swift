@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Movie: Decodable {
+struct Movie: Decodable {
     let title: String
     let adult: Bool
     let originalLanguage: String

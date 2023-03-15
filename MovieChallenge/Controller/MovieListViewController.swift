@@ -58,13 +58,29 @@ class MovieListViewController: UIViewController {
         genres.forEach { genre in
             let button = UIButton(type: .system)
             button.setTitle(genre.name, for: .normal)
-            genresStackView.addArrangedSubview(button)
+            button.tag = genre.id
             button.setTitleColor(.black, for: .normal)
             button.backgroundColor = .lightGray
             button.layer.cornerRadius = 12
+            button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
+            genresStackView.addArrangedSubview(button)
+    
+        }
+    }
+    @objc func pressed(_ sender: UIButton) {
+        service.fetchMoviesOfGenre(id: sender.tag) { [weak self] result in
+            switch result {
+            case .success(let moviesOfGenreResponse):
+                self?.movies = moviesOfGenreResponse.results
+                DispatchQueue.main.async {
+                    self?.listTableView.reloadData()
+                }
+            case .failure(let error): print(error)
+            }
         }
     }
 }
+
 extension MovieListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -77,7 +93,7 @@ extension MovieListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         let movie = movies[indexPath.row]
-        cell.configureCell(image: "https://image.tmdb.org/t/p/w55\(movie.poster)", label: movie.title)
+        cell.configureCell(image: "https://image.tmdb.org/t/p/w500\(movie.poster)", label: movie.title)
         return cell
          
     }

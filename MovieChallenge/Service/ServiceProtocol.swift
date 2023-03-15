@@ -8,7 +8,8 @@
 import Foundation
 
 protocol ServiceProtocol {
-    func fetchTopRatedMovies(completionHandler: @escaping (Result<TopRatedResponse, Error>) -> Void)
+    func fetchTopRatedMovies(completionHandler: @escaping (Result<MovieListResponse, Error>) -> Void)
     func fetchGenreListMovies(completionHandler: @escaping (Result<GenreListResponse, Error>) -> Void)
+    func fetchMoviesOfGenre(id: Int, completionHandler: @escaping (Result<MovieListResponse, Error>) -> Void)
 }
 

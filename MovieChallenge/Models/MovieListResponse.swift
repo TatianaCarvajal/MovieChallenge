@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct TopRatedResponse: Decodable {
+struct MovieListResponse: Decodable {
     let results: [Movie]
 }
