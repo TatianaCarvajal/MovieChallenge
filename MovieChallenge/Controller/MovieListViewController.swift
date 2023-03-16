@@ -33,7 +33,10 @@ class MovieListViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.listTableView.reloadData()
                 }
-            case .failure(let error): print(error)
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.showAlert()
+                }
             }
         }
     }
@@ -50,7 +53,11 @@ class MovieListViewController: UIViewController {
                     self?.genres = genreListResponse.genres
                     self?.selectGenres()
                 }
-            case .failure(let error): print(error)
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.showAlert()
+                    
+                }
             }
         }
     }
@@ -75,9 +82,20 @@ class MovieListViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.listTableView.reloadData()
                 }
-            case .failure(let error): print(error)
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.showAlert()
+                }
+                print("error")
+                
             }
         }
+    }
+    func showAlert() {
+        let alert: UIAlertController = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
+        let cancel: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
