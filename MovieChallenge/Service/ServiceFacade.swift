@@ -83,4 +83,29 @@ struct ServiceFacade: ServiceProtocol {
             }
         }.resume()
     }
+    
+    func fetchMoviesDetail(id: Int, completionHandler: @escaping (Result<Movie, Error>) -> Void) {
+        guard let url = URL(string: "\(baseUrl)/movie/\(id)?api_key=\(self.key)") else {
+            completionHandler(.failure(ServiceError.urlDoesNotExist))
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            guard let data = data else {
+                completionHandler(.failure(ServiceError.noDataFound))
+                return
+            }
+            
+            do {
+                let response = try JSONDecoder().decode(Movie.self, from: data)
+                completionHandler(.success(response))
+            }
+            catch {
+                print(error)
+                completionHandler(.failure(ServiceError.serializationFailed))
+            }
+        }.resume()
+
+    }
 }

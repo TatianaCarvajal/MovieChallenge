@@ -29,5 +29,3 @@ class MovieTableViewCell: UITableViewCell {
         movieImage.load(url: url)
     }
 }
-
-
