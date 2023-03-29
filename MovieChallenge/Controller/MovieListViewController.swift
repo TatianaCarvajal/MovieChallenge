@@ -67,8 +67,10 @@ class MovieListViewController: UIViewController {
             button.setTitle(genre.name, for: .normal)
             button.tag = genre.id
             button.setTitleColor(.black, for: .normal)
-            button.backgroundColor = .lightGray
             button.layer.cornerRadius = 12
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.black.cgColor
+            button.widthAnchor.constraint(equalToConstant: 100).isActive = true
             button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
             genresStackView.addArrangedSubview(button)
     
@@ -120,4 +122,21 @@ extension MovieListViewController: UITableViewDataSource {
 }
 extension MovieListViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        
+        let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
+        guard let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else{
+            return
+        }
+        detailViewController.movieId = movie.id
+        
+            if let navigationController = self.navigationController {
+                navigationController.pushViewController(detailViewController, animated: true)
+            }else {
+            present(detailViewController, animated: true)
+        }
+    }
 }
+    
+
