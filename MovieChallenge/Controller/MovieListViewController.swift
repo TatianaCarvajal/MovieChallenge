@@ -40,11 +40,13 @@ class MovieListViewController: UIViewController {
             }
         }
     }
+    
     private func setupTableView() {
         listTableView.dataSource = self
         listTableView.delegate = self
         listTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
     }
+    
     private func loadGenres() {
         service.fetchGenreListMovies { [weak self] result in
             switch result {
@@ -61,6 +63,7 @@ class MovieListViewController: UIViewController {
             }
         }
     }
+    
     private func selectGenres() {
         genres.forEach { genre in
             let button = UIButton(type: .system)
@@ -76,6 +79,7 @@ class MovieListViewController: UIViewController {
     
         }
     }
+    
     @objc func pressed(_ sender: UIButton) {
         service.fetchMoviesOfGenre(id: sender.tag) { [weak self] result in
             switch result {
@@ -88,11 +92,10 @@ class MovieListViewController: UIViewController {
                 DispatchQueue.main.async {
                     self?.showAlert()
                 }
-                print("error")
-                
             }
         }
     }
+    
     func showAlert() {
         let alert: UIAlertController = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
         let cancel: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -131,9 +134,9 @@ extension MovieListViewController: UITableViewDelegate {
         }
         detailViewController.movieId = movie.id
         
-            if let navigationController = self.navigationController {
-                navigationController.pushViewController(detailViewController, animated: true)
-            }else {
+        if let navigationController = self.navigationController {
+            navigationController.pushViewController(detailViewController, animated: true)
+        } else {
             present(detailViewController, animated: true)
         }
     }
