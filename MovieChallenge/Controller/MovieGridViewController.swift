@@ -9,8 +9,8 @@ import UIKit
 
 class MovieGridViewController: UIViewController {
     
-    @IBOutlet var genreStackView: UIStackView!
-    @IBOutlet var gridCollectionView: UICollectionView!
+    @IBOutlet private var genreStackView: UIStackView!
+    @IBOutlet private var gridCollectionView: UICollectionView!
 
     
     var service: ServiceProtocol = ServiceFacade()
@@ -94,7 +94,7 @@ class MovieGridViewController: UIViewController {
         }
     }
     
-    func showAlert() {
+   private func showAlert() {
         let alert: UIAlertController = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
         let cancel: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancel)
