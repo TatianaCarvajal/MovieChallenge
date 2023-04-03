@@ -66,22 +66,16 @@ class MovieListViewController: UIViewController {
     
     private func selectGenres() {
         genres.forEach { genre in
-            let button = UIButton(type: .system)
-            button.setTitle(genre.name, for: .normal)
-            button.tag = genre.id
-            button.setTitleColor(.black, for: .normal)
-            button.layer.cornerRadius = 12
-            button.layer.borderWidth = 1
-            button.layer.borderColor = UIColor.black.cgColor
-            button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-            button.addTarget(self, action: #selector(pressed(_:)), for: .touchUpInside)
+            let button = GenreButton(title: genre.name, tag: genre.id) { [weak self] tag in
+                self?.fetchMoviesForGenre(id: tag)
+            }
             genresStackView.addArrangedSubview(button)
     
         }
     }
     
-    @objc func pressed(_ sender: UIButton) {
-        service.fetchMoviesOfGenre(id: sender.tag) { [weak self] result in
+    private func fetchMoviesForGenre(id: Int) {
+        service.fetchMoviesOfGenre(id: id) { [weak self] result in
             switch result {
             case .success(let moviesOfGenreResponse):
                 self?.movies = moviesOfGenreResponse.results

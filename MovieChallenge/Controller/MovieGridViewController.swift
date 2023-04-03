@@ -9,17 +9,22 @@ import UIKit
 
 class MovieGridViewController: UIViewController {
     
+    @IBOutlet var genreStackView: UIStackView!
     @IBOutlet var gridCollectionView: UICollectionView!
+
     
     var service: ServiceProtocol = ServiceFacade()
     
     private var movies: [Movie] = []
+    
+    private var genres: [Genre] = []
     
     private let cellWidth = UIScreen.main.bounds.width / 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMovies()
+        loadGenres()
         setupCollectionView()
     }
     
@@ -46,12 +51,56 @@ class MovieGridViewController: UIViewController {
         gridCollectionView.register(UINib(nibName: "MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCollectionViewCell")
     }
     
+    private func loadGenres() {
+        service.fetchGenreListMovies { [weak self] result in
+            switch result {
+            case .success(let genreListResponse):
+                DispatchQueue.main.async {
+                    self?.genres = genreListResponse.genres
+                    self?.selectGenres()
+                }
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.showAlert()
+                    
+                }
+            }
+        }
+    }
+    
+    private func selectGenres() {
+        genres.forEach { genre in
+            let button = GenreButton(title: genre.name, tag: genre.id) { [weak self] tag in
+                self?.fetchMoviesForGenre(id: tag)
+            }
+            genreStackView.addArrangedSubview(button)
+    
+        }
+    }
+    
+    private func fetchMoviesForGenre(id: Int) {
+        service.fetchMoviesOfGenre(id: id) { [weak self] result in
+            switch result {
+            case .success(let moviesOfGenreResponse):
+                self?.movies = moviesOfGenreResponse.results
+                DispatchQueue.main.async {
+                    self?.gridCollectionView.reloadData()
+                }
+            case .failure(_):
+                DispatchQueue.main.async {
+                    self?.showAlert()
+                }
+            }
+        }
+    }
+    
     func showAlert() {
         let alert: UIAlertController = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
         let cancel: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }
+    
 }
 
 extension MovieGridViewController: UICollectionViewDataSource {

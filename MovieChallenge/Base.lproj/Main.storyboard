@@ -84,8 +84,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Zv-qq-ua6">
+                                <rect key="frame" x="3" y="91" width="369" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="LbW-Ef-yKV" userLabel="GenreStackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="567.33333333333337" height="43"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="LbW-Ef-yKV" firstAttribute="top" secondItem="3Zv-qq-ua6" secondAttribute="top" id="Evy-Yp-qSk"/>
+                                    <constraint firstAttribute="bottom" secondItem="LbW-Ef-yKV" secondAttribute="bottom" id="H0K-uA-mk6"/>
+                                    <constraint firstAttribute="trailing" secondItem="LbW-Ef-yKV" secondAttribute="trailing" id="gAY-Dg-0Pj"/>
+                                    <constraint firstAttribute="height" constant="50" id="iIW-JB-R0P"/>
+                                    <constraint firstItem="LbW-Ef-yKV" firstAttribute="leading" secondItem="3Zv-qq-ua6" secondAttribute="leading" id="uXw-xT-dXz"/>
+                                    <constraint firstItem="LbW-Ef-yKV" firstAttribute="height" secondItem="3Zv-qq-ua6" secondAttribute="height" multiplier="0.859375" id="wrI-Ic-47e"/>
+                                </constraints>
+                            </scrollView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f6L-Tn-yRl">
-                                <rect key="frame" x="0.0" y="91" width="375" height="638"/>
+                                <rect key="frame" x="0.0" y="151" width="375" height="578"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nHX-eg-LYg">
                                     <size key="itemSize" width="196" height="180"/>
@@ -100,13 +116,18 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dFN-zu-q7s" firstAttribute="bottom" secondItem="f6L-Tn-yRl" secondAttribute="bottom" id="9Py-C4-zev"/>
-                            <constraint firstItem="f6L-Tn-yRl" firstAttribute="top" secondItem="dFN-zu-q7s" secondAttribute="top" id="IRA-bL-6rS"/>
+                            <constraint firstItem="3Zv-qq-ua6" firstAttribute="top" secondItem="dFN-zu-q7s" secondAttribute="top" id="AhC-4Y-9WM"/>
+                            <constraint firstItem="f6L-Tn-yRl" firstAttribute="top" secondItem="3Zv-qq-ua6" secondAttribute="bottom" constant="10" id="GqF-Kf-uUw"/>
                             <constraint firstItem="f6L-Tn-yRl" firstAttribute="leading" secondItem="dFN-zu-q7s" secondAttribute="leading" id="NZl-2Z-m41"/>
                             <constraint firstItem="dFN-zu-q7s" firstAttribute="trailing" secondItem="f6L-Tn-yRl" secondAttribute="trailing" id="VgW-qD-jbf"/>
+                            <constraint firstItem="dFN-zu-q7s" firstAttribute="trailing" secondItem="3Zv-qq-ua6" secondAttribute="trailing" constant="3" id="daf-ZY-FSd"/>
+                            <constraint firstItem="3Zv-qq-ua6" firstAttribute="leading" secondItem="dFN-zu-q7s" secondAttribute="leading" constant="3" id="gHV-8m-7ac"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Grid" image="square.split.2x2.fill" catalog="system" id="dvv-Ik-0JW"/>
+                    <navigationItem key="navigationItem" title="Title" id="4aW-qq-uoF"/>
                     <connections>
+                        <outlet property="genreStackView" destination="LbW-Ef-yKV" id="uS4-eq-2H8"/>
                         <outlet property="gridCollectionView" destination="f6L-Tn-yRl" id="kIF-aS-XbG"/>
                     </connections>
                 </viewController>
