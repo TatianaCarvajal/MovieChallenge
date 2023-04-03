@@ -52,6 +52,7 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
     func showAlert() {
         let alert: UIAlertController = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
         let cancel: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)

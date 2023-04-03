@@ -1,16 +1,17 @@
 //
-//  ViewController.swift
+//  MovieGridViewController.swift
 //  MovieChallenge
 //
-//  Created by Tatiana Carvajal on 8/03/23.
+//  Created by Tatiana Carvajal on 28/03/23.
 //
 
 import UIKit
 
-class MovieListViewController: UIViewController {
+class MovieGridViewController: UIViewController {
     
-    @IBOutlet var listTableView: UITableView!
-    @IBOutlet var genresStackView: UIStackView!
+    @IBOutlet private var genreStackView: UIStackView!
+    @IBOutlet private var gridCollectionView: UICollectionView!
+
     
     var service: ServiceProtocol = ServiceFacade()
     
@@ -18,11 +19,13 @@ class MovieListViewController: UIViewController {
     
     private var genres: [Genre] = []
     
+    private let cellWidth = UIScreen.main.bounds.width / 2
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMovies()
         loadGenres()
-        setupTableView()
+        setupCollectionView()
     }
     
     private func loadMovies() {
@@ -31,20 +34,21 @@ class MovieListViewController: UIViewController {
             case .success(let topRatedResponse):
                 self?.movies = topRatedResponse.results
                 DispatchQueue.main.async {
-                    self?.listTableView.reloadData()
+                    self?.gridCollectionView.reloadData()
                 }
             case .failure(_):
                 DispatchQueue.main.async {
-                    self?.showAlert()
+                   self?.showAlert()
+                    
                 }
             }
         }
     }
     
-    private func setupTableView() {
-        listTableView.dataSource = self
-        listTableView.delegate = self
-        listTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
+    private func setupCollectionView() {
+        gridCollectionView.dataSource = self
+        gridCollectionView.delegate = self
+        gridCollectionView.register(UINib(nibName: "MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MovieCollectionViewCell")
     }
     
     private func loadGenres() {
@@ -69,7 +73,7 @@ class MovieListViewController: UIViewController {
             let button = GenreButton(title: genre.name, tag: genre.id) { [weak self] tag in
                 self?.fetchMoviesForGenre(id: tag)
             }
-            genresStackView.addArrangedSubview(button)
+            genreStackView.addArrangedSubview(button)
     
         }
     }
@@ -80,7 +84,7 @@ class MovieListViewController: UIViewController {
             case .success(let moviesOfGenreResponse):
                 self?.movies = moviesOfGenreResponse.results
                 DispatchQueue.main.async {
-                    self?.listTableView.reloadData()
+                    self?.gridCollectionView.reloadData()
                 }
             case .failure(_):
                 DispatchQueue.main.async {
@@ -90,36 +94,38 @@ class MovieListViewController: UIViewController {
         }
     }
     
-    func showAlert() {
+   private func showAlert() {
         let alert: UIAlertController = UIAlertController(title: "Error", message: "Not Found", preferredStyle: .alert)
         let cancel: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)
     }
+    
 }
 
-extension MovieListViewController: UITableViewDataSource {
+extension MovieGridViewController: UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as? MovieTableViewCell else {
-            return UITableViewCell()
+        
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return movies.count
+        }
+        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as? MovieCollectionViewCell else {
+            return UICollectionViewCell()
         }
         let movie = movies[indexPath.row]
         cell.configureCell(image: "https://image.tmdb.org/t/p/w500\(movie.poster)", label: movie.title)
         return cell
-         
     }
-    
-    
 }
-extension MovieListViewController: UITableViewDelegate {
+
+extension MovieGridViewController: UICollectionViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        
         let movie = movies[indexPath.row]
         
         let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
@@ -135,5 +141,13 @@ extension MovieListViewController: UITableViewDelegate {
         }
     }
 }
+
+extension MovieGridViewController: UICollectionViewDelegateFlowLayout {
+    
+    func CollectionView(_collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt Indexpath: IndexPath) -> CGSize {
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
     
 
+}
