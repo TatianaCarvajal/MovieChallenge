@@ -28,6 +28,7 @@
 		75C1B31429BCC82D004A1467 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1B31229BCC82D004A1467 /* MovieTableViewCell.swift */; };
 		75C1B31529BCC82D004A1467 /* MovieTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C1B31329BCC82D004A1467 /* MovieTableViewCell.xib */; };
 		75C1B31829BCD75C004A1467 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1B31729BCD75C004A1467 /* ImageExtension.swift */; };
+		75D56F3729F70C79008035A5 /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D56F3629F70C79008035A5 /* MovieListPresenter.swift */; };
 		75DE76EA29C9471400B986C8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DE76E929C9471400B986C8 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		75C1B31229BCC82D004A1467 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		75C1B31329BCC82D004A1467 /* MovieTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieTableViewCell.xib; sourceTree = "<group>"; };
 		75C1B31729BCD75C004A1467 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
+		75D56F3629F70C79008035A5 /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
 		75DE76E929C9471400B986C8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +90,7 @@
 		753025B629B927A700D4BB1D /* MovieChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				75C1B31629BCD72C004A1467 /* Extensions */,
+				75D56F3529F70C22008035A5 /* Presenters */,
 				75C1B31129BCC7B5004A1467 /* Controller */,
 				75C1B31029BCC79F004A1467 /* View */,
 				753025CE29B92C4500D4BB1D /* Models */,
@@ -148,11 +150,12 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		75C1B31629BCD72C004A1467 /* Extensions */ = {
+		75D56F3529F70C22008035A5 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				75D56F3629F70C79008035A5 /* MovieListPresenter.swift */,
 			);
-			path = Extensions;
+			path = Presenters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +244,7 @@
 				752886A829D766A70000864A /* GenreButton.swift in Sources */,
 				753025D229B9311E00D4BB1D /* Genre.swift in Sources */,
 				753025D829B9405500D4BB1D /* MovieListResponse.swift in Sources */,
+				75D56F3729F70C79008035A5 /* MovieListPresenter.swift in Sources */,
 				753025CD29B92AF800D4BB1D /* ServiceProtocol.swift in Sources */,
 				750ED04A29D37478008A47E7 /* MovieCollectionViewCell.swift in Sources */,
 				75C1B31829BCD75C004A1467 /* ImageExtension.swift in Sources */,

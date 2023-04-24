@@ -12,81 +12,28 @@ class MovieListViewController: UIViewController {
     @IBOutlet var listTableView: UITableView!
     @IBOutlet var genresStackView: UIStackView!
     
-    var service: ServiceProtocol = ServiceFacade()
-    
-    private var movies: [Movie] = []
-    
-    private var genres: [Genre] = []
+    var presenter: MovieListPresenter = MovieListPresenter(service: ServiceFacade())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadMovies()
-        loadGenres()
+        presenter.delegate = self
+        presenter.loadMovies()
+        presenter.loadGenres()
         setupTableView()
     }
-    
-    private func loadMovies() {
-        service.fetchTopRatedMovies { [weak self] result in
-            switch result {
-            case .success(let topRatedResponse):
-                self?.movies = topRatedResponse.results
-                DispatchQueue.main.async {
-                    self?.listTableView.reloadData()
-                }
-            case .failure(_):
-                DispatchQueue.main.async {
-                    self?.showAlert()
-                }
-            }
-        }
-    }
-    
+
     private func setupTableView() {
         listTableView.dataSource = self
         listTableView.delegate = self
         listTableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
     }
     
-    private func loadGenres() {
-        service.fetchGenreListMovies { [weak self] result in
-            switch result {
-            case .success(let genreListResponse):
-                DispatchQueue.main.async {
-                    self?.genres = genreListResponse.genres
-                    self?.selectGenres()
-                }
-            case .failure(_):
-                DispatchQueue.main.async {
-                    self?.showAlert()
-                    
-                }
-            }
-        }
-    }
-    
     private func selectGenres() {
-        genres.forEach { genre in
+        presenter.genres.forEach { genre in
             let button = GenreButton(title: genre.name, tag: genre.id) { [weak self] tag in
-                self?.fetchMoviesForGenre(id: tag)
+                self?.presenter.fetchMoviesForGenre(id: tag)
             }
             genresStackView.addArrangedSubview(button)
-    
-        }
-    }
-    
-    private func fetchMoviesForGenre(id: Int) {
-        service.fetchMoviesOfGenre(id: id) { [weak self] result in
-            switch result {
-            case .success(let moviesOfGenreResponse):
-                self?.movies = moviesOfGenreResponse.results
-                DispatchQueue.main.async {
-                    self?.listTableView.reloadData()
-                }
-            case .failure(_):
-                DispatchQueue.main.async {
-                    self?.showAlert()
-                }
-            }
         }
     }
     
@@ -101,7 +48,7 @@ class MovieListViewController: UIViewController {
 extension MovieListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return presenter.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,10 +56,10 @@ extension MovieListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as? MovieTableViewCell else {
             return UITableViewCell()
         }
-        let movie = movies[indexPath.row]
-        cell.configureCell(image: "https://image.tmdb.org/t/p/w500\(movie.poster)", label: movie.title)
+        
+        let (poster, title) = presenter.getMoviePosterAndTitle(pos: indexPath.row)
+        cell.configureCell(image: poster, label: title)
         return cell
-         
     }
     
     
@@ -120,13 +67,7 @@ extension MovieListViewController: UITableViewDataSource {
 extension MovieListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = movies[indexPath.row]
-        
-        let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
-        guard let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else{
-            return
-        }
-        detailViewController.movieId = movie.id
+        let detailViewController = presenter.getDetailViewController(pos: indexPath.row)
         
         if let navigationController = self.navigationController {
             navigationController.pushViewController(detailViewController, animated: true)
@@ -135,5 +76,24 @@ extension MovieListViewController: UITableViewDelegate {
         }
     }
 }
+
+extension MovieListViewController: MovieListDelegate {
+    func showGenres() {
+        DispatchQueue.main.async {
+            self.selectGenres()
+        }
+    }
     
+    func reloadView() {
+        DispatchQueue.main.async {
+            self.listTableView.reloadData()
+        }
+    }
+    
+    func showError() {
+        DispatchQueue.main.async {
+            self.showAlert()
+        }
+    }
+}
 
