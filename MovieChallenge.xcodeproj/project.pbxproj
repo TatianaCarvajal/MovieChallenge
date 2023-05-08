@@ -30,6 +30,7 @@
 		75C1B31829BCD75C004A1467 /* ImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C1B31729BCD75C004A1467 /* ImageExtension.swift */; };
 		75D56F3729F70C79008035A5 /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D56F3629F70C79008035A5 /* MovieListPresenter.swift */; };
 		75DE76EA29C9471400B986C8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DE76E929C9471400B986C8 /* DetailViewController.swift */; };
+		75FA19A229F9AF920009ED07 /* MovieGridPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FA19A129F9AF920009ED07 /* MovieGridPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		75C1B31729BCD75C004A1467 /* ImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExtension.swift; sourceTree = "<group>"; };
 		75D56F3629F70C79008035A5 /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
 		75DE76E929C9471400B986C8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		75FA19A129F9AF920009ED07 /* MovieGridPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieGridPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				75D56F3629F70C79008035A5 /* MovieListPresenter.swift */,
+				75FA19A129F9AF920009ED07 /* MovieGridPresenter.swift */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				753025D429B933D500D4BB1D /* ServiceFacade.swift in Sources */,
 				753025BC29B927A700D4BB1D /* MovieListViewController.swift in Sources */,
 				753025B829B927A700D4BB1D /* AppDelegate.swift in Sources */,
+				75FA19A229F9AF920009ED07 /* MovieGridPresenter.swift in Sources */,
 				753025BA29B927A700D4BB1D /* SceneDelegate.swift in Sources */,
 				75B5620F29BFA95100ECEE51 /* GenreListResponse.swift in Sources */,
 				752886A829D766A70000864A /* GenreButton.swift in Sources */,
