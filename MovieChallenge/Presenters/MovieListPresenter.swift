@@ -72,7 +72,7 @@ class MovieListPresenter {
         guard let detailViewController = storyboard.instantiateViewController(withIdentifier: "DetailViewController") as? DetailViewController else{
             return UIViewController()
         }
-        detailViewController.movieId = movie.id
+        detailViewController.presenter = DetailPresenter(service: ServiceFacade(), movieId: movie.id)
         
         return detailViewController
     }
