@@ -15,7 +15,7 @@ protocol DetailDelegate: AnyObject {
 class DetailPresenter {
     
     private let service: ServiceProtocol
-    private let movieId: Int
+    private(set) var movieId: Int
     private(set) var movie: Movie?
     weak var delegate: DetailDelegate?
     
